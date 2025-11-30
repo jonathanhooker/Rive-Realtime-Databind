@@ -25,15 +25,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning className="h-full">
+      <body className={`${geistSans.className} antialiased h-full`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="h-full">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

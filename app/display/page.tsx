@@ -1,5 +1,5 @@
 // import { RealtimeCursors } from '@/components/realtime-cursors'
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/client';
 import { Suspense } from 'react';
 
 export async function RiveStatePage() {
@@ -9,7 +9,7 @@ export async function RiveStatePage() {
   return <pre>{JSON.stringify(riveState, null, 2)}</pre>;
 }
 
-export default function Home() {
+export default function Display() {
 
   return (
     <Suspense>
