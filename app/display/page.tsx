@@ -1,20 +1,108 @@
-// import { RealtimeCursors } from '@/components/realtime-cursors'
-import { createClient } from '@/lib/supabase/client';
-import { Suspense } from 'react';
-
-export async function RiveStatePage() {
-  const supabase = await createClient()
-  const { data: riveState } = await supabase.from('rive-state').select().limit(1).single();
-
-  return <pre>{JSON.stringify(riveState, null, 2)}</pre>;
-}
+"use client";
+import { useEffect, useEffectEvent, useState } from "react";
+import {
+  Alignment,
+  Fit,
+  Layout,
+  useRive,
+  useViewModel,
+  useViewModelInstance,
+  useViewModelInstanceBoolean,
+  useViewModelInstanceEnum,
+  useViewModelInstanceNumber,
+  useViewModelInstanceTrigger
+} from "@rive-app/react-webgl2";
+import { useSyncState } from "@/hooks/use-synced-state";
 
 export default function Display() {
+  const { data, setData } = useSyncState(1);
+  const [initialSync, setInitialSync] = useState(false);
+  const { rive, RiveComponent } = useRive({
+    src: "/rive/display.riv",
+    artboard: "display_device",
+    stateMachines: "State Machine 1",
+    autoplay: true,
+    autoBind: true,
+    layout: new Layout({
+      fit: Fit.FitHeight,
+      alignment: Alignment.Center,
+    }),
+  });
+
+  // const viewModel = useViewModel(rive);
+  // const vmi = useViewModelInstance(viewModel, { rive });
+  // const { value: mode, setValue: setMode } =
+  //   useViewModelInstanceEnum("mode", vmi);
+  // const { value: slider_1_val, setValue: setSlider1Val } =
+  //   useViewModelInstanceNumber("slider_1/value", vmi);
+  // const { value: slider_2_val, setValue: setSlider2Val } =
+  //   useViewModelInstanceNumber("slider_2/value", vmi);
+  // const { value: slider_3_val, setValue: setSlider3Val } =
+  //   useViewModelInstanceNumber("slider_3/value", vmi);
+  // const { value: slider_4_val, setValue: setSlider4Val } =
+  //   useViewModelInstanceNumber("slider_4/value", vmi);
+  // const { value: slider_5_val, setValue: setSlider5Val } =
+  //   useViewModelInstanceNumber("slider_5/value", vmi);
+  // const { value: slider_6_val, setValue: setSlider6Val } =
+  //   useViewModelInstanceNumber("slider_6/value", vmi);
+  // const { value: slider_7_val, setValue: setSlider7Val } =
+  //   useViewModelInstanceNumber("slider_7/value", vmi);
+  // const { value: slider_8_val, setValue: setSlider8Val } =
+  //   useViewModelInstanceNumber("slider_8/value", vmi);
+  // const { value: slider_9_val, setValue: setSlider9Val } =
+  //   useViewModelInstanceNumber("slider_9/value", vmi);
+  // const { value: slider_10_val, setValue: setSlider10Val } =
+  //   useViewModelInstanceNumber("slider_10/value", vmi);
+  // const { value: slider_11_val, setValue: setSlider11Val } =
+  //   useViewModelInstanceNumber("slider_11/value", vmi);
+  // const { value: slider_12_val, setValue: setSlider12Val } =
+  //   useViewModelInstanceNumber("slider_12/value", vmi);
+  // const { value: slider_13_val, setValue: setSlider13Val } =
+  //   useViewModelInstanceNumber("slider_13/value", vmi);
+  // const { value: slider_14_val, setValue: setSlider14Val } =
+  //   useViewModelInstanceNumber("slider_14/value", vmi);
+  // const { value: slider_15_val, setValue: setSlider15Val } =
+  //   useViewModelInstanceNumber("slider_15/value", vmi);
+  // const { value: slider_16_val, setValue: setSlider16Val } =
+  //   useViewModelInstanceNumber("slider_16/value", vmi);
+  // const { value: isTransitioning } = useViewModelInstanceBoolean(
+  //   "transitioning",
+  //   vmi
+  // );
+
+  // const syncToData = useEffectEvent(() => {
+  //   if (data && rive && rive.isPlaying && data.mode) {
+  //     if (!initialSync) {
+  //       console.log("Initial sync from remote data:", data);
+  //     }
+  //     console.log("mode sync:", data.mode);
+  //     setMode(`mode_${data.mode}`);
+  //     if(data.slider_1 !== slider_1_val) setSlider1Val(data.slider_1);
+  //     if(data.slider_2 !== slider_2_val) setSlider2Val(data.slider_2);
+  //     if(data.slider_3 !== slider_3_val) setSlider3Val(data.slider_3);
+  //     if(data.slider_4 !== slider_4_val) setSlider4Val(data.slider_4);
+  //     if(data.slider_5 !== slider_5_val) setSlider5Val(data.slider_5);
+  //     if(data.slider_6 !== slider_6_val) setSlider6Val(data.slider_6);
+  //     if(data.slider_7 !== slider_7_val) setSlider7Val(data.slider_7);
+  //     if(data.slider_8 !== slider_8_val) setSlider8Val(data.slider_8);
+  //     if(data.slider_9 !== slider_9_val) setSlider9Val(data.slider_9);
+  //     if(data.slider_10 !== slider_10_val) setSlider10Val(data.slider_10);
+  //     if(data.slider_11 !== slider_11_val) setSlider11Val(data.slider_11);
+  //     if(data.slider_12 !== slider_12_val) setSlider12Val(data.slider_12);
+  //     if(data.slider_13 !== slider_13_val) setSlider13Val(data.slider_13);
+  //     if(data.slider_14 !== slider_14_val) setSlider14Val(data.slider_14);
+  //     if(data.slider_15 !== slider_15_val) setSlider15Val(data.slider_15);
+  //     if(data.slider_16 !== slider_16_val) setSlider16Val(data.slider_16);
+  //     setInitialSync(true);
+  //   }
+  // });
+  // useEffect(() => {
+  //   syncToData()
+  // }, [data]);
 
   return (
-    <Suspense>
-      <RiveStatePage />
-    </Suspense>
+    <div className="w-screen h-screen relative">
+      <RiveComponent />
+    </div>
   );
-
 }

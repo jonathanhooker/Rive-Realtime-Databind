@@ -93,9 +93,10 @@ export default function Controller() {
   useViewModelInstanceTrigger( 'click_mode_4', vmi, { onTrigger: triggerMode4 } );
 
   const sendSliderUpdate = useEffectEvent((sliderNum: number, value: number | null) => {
-    if(initialSync && value !== null){
-      if(data[`slider_${sliderNum}`] !== value)
-        setData({ [`slider_${sliderNum}`]: value });
+    if(initialSync && value !== null && data){
+      const key = `slider_${sliderNum}` as keyof typeof data;
+      if(data[key] !== value)
+        setData({ [key]: value });
     }
   });
 
